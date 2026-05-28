@@ -1,0 +1,21 @@
+﻿rule_id,exact_codes,exact_descriptions,pattern_codes,pattern_descriptions,action_type,remove_codes,add_code,add_diagnosis,description
+1,"R11.1,R11.2",,,,replace,"R11.1,R11.2",R11.3,Nausea with Vomiting,Combine nausea and vomiting
+2,"R50.99,R68.8",",*Chill*",,,replace,"R50.99,R68.8",R50.8,Fever with chills,Fever + Chills → Fever with chills
+3,D64.9,,^[CD](?!D[5-8][0-9]\.),,modify,D64.9,D63.0,Anaemia in neoplastic disease,D64.9→D63.0 when with C/D codes
+4,"G40.90,R56.9",,,,modify,R56.9,,"Epilepsy, unspecified without intractable epilepsy",Keep G40.90 only when with R56.9
+5,K80.20,,^K81\.[189]$,,replace,K80.20,K80.10,"Calculus of gallbladder with other cholecystitis, without mention of obstruction",K80.20 + K81.1/8/9 → K80.10
+6,"K80.20,K81.0",,,,replace,"K80.20,K81.0",K80.00,"Calculus of gallbladder with acute cholecystitis, without mention of obstruction",K80.20 + K81.0 → K80.00
+7,K80.21,,^K81\.[189]$,,replace,K80.21,K80.11,"Calculus of gallbladder with other cholecystitis, with obstruction ",K80.21 + K81.1/8/9 → K80.11
+8,"K80.21,K81.0",,,,replace,"K80.21,K81.0",K80.01,"Calculus of gallbladder with acute cholecystitis, with obstruction ",K80.21 + K81.0 → K80.01
+9,"K80.50,K83.0",,,,replace,"K80.50,K83.0",K80.30,"Calculus of bile duct with cholangitis, without mention of obstruction",K80.50 + K83.0 → K80.30
+10,"K80.51,K83.0",,,,replace,"K80.51,K83.0",K80.31,"Calculus of bile duct with cholangitis, with obstruction ",K80.51 + K83.0 → K80.31
+11,K80.50,,^K81\.[0189]$,,replace,K80.50,K80.40,"Choledocholithiasis with cholecystitis (with cholangitis), without mention of obstruction",K80.50 + K81.0/1/8/9 → K80.40
+12,K80.51,,^K81\.[0189]$,,replace,K80.51,K80.41,"Calculus of bile duct with cholecystitis, with obstruction ",K80.51 + K81.0/1/8/9 → K80.41
+13,"R11.3,R11.1",,,,replace,"R11.3,R11.1",R11.3,Nausea with Vomiting,Keep R11.3 only when with R11.1
+14,"R11.3,R11.2",,,,replace,"R11.3,R11.2",R11.3,Nausea with Vomiting,Keep R11.3 only when with R11.2
+15,"R11.3,R11.1,R11.2",,,,replace,"R11.3,R11.1,R11.2",R11.3,Nausea with Vomiting,Keep R11.3 only when with R11.1 and R11.2
+16,"A09.9,A09.9","*enteritis*,*colitis*",,,replace,"A09.9,A09.9",A09.9,Gastroenteritis and colitis of unspecified origin,Merge A09.9(enteritis) + A09.9(colitis)
+17,"K58.8,A09.9",",*diarrhea*|*diarrhoea*",,,replace,"K58.8,A09.9",K58.1,Irritable bowel syndrome with predominant diarrhoea,IBS + Diarrhea -> IBS-D
+18,"A49.8,A09.0","*Clostridium difficile*,",,,replace,"A49.8,A09.0",A04.7,Enterocolitis due to Clostridium difficile,C.difficile + A09.0 -> A04.7
+19,"I50.9,J81",,,,replace,"I50.9,J81",I50.1,Pulmonary oedema with mention of heart disease or heart failure,Heart failure + Pulmonary edema -> I50.1
+20,"G03.9,B34.1",",*enterovirus*",,,replace,"G03.9,B34.1","A87.0,G02.0",Enteroviral meningitis,Meningitis + Enterovirus -> Enteroviral meningitis

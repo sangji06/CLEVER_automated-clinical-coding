@@ -1,0 +1,11 @@
+phase1:
+  aws_region: us-west-2
+  model_id: qwen.qwen3-32b-v1:0
+
+phase2:
+  embedding_model: cambridgeltl/SapBERT-from-PubMedBERT-fulltext
+  faiss_index_path: data/faiss_index
+  device: auto
+
+phase3:
+  rules_path: rules/code_correction_rules.csv

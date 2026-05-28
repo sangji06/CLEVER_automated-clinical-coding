@@ -1,0 +1,12 @@
+﻿boto3
+botocore
+faiss-cpu
+langchain-community
+langchain-core
+langchain-huggingface
+openpyxl
+pandas
+scipy
+sentence-transformers
+torch
+transformers

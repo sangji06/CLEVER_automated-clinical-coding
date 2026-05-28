@@ -1,0 +1,14 @@
+{
+  "synthetic_record_001": [
+    {
+      "term": "Fever",
+      "kcd_code": "R50.99",
+      "kcd_description": "Fever"
+    },
+    {
+      "term": "Chills",
+      "kcd_code": "R68.8",
+      "kcd_description": "Other specified general symptoms and signs"
+    }
+  ]
+}

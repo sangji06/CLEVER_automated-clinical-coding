@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local environment
+.env
+.env.*
+*.log
+
+# Private data and generated outputs
+data/*
+!data/.gitkeep
+!data/README.md
+outputs/*
+!outputs/.gitkeep
+!outputs/README.md
+
+# Patient-derived or non-public research artifacts
+ER*/
+*ER*
+GT_*.json
+step*_result_*.json
+step*_result_*.xlsx
+*_applied_rules_*.csv
+Curated_KCD*.csv
+Original_KCD*.csv
+*_faiss_index/
+*.faiss
+*.pkl
+
+# Documents under journal review
+*.docx
+*.pdf

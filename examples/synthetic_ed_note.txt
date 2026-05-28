@@ -1,0 +1,3 @@
+The patient visited the emergency department with fever and cough. Chest
+imaging suggested pneumonia. A history of hypertension was noted but was not
+addressed during this visit.

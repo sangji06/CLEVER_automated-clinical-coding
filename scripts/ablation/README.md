@@ -7,7 +7,7 @@ files.
 The public scripts keep the original control logic but replace local hard-coded
 paths with command-line arguments.
 
-## Control 1: No Guideline
+## Historical Control 1: Generic Extraction Prompt
 
 Runs the no-guideline single-step Phase 1 extraction from the original
 `baseline1_no_guideline.py`, then uses the curated KCD FAISS index for Phase 2
@@ -26,6 +26,43 @@ python scripts/ablation/run_control1_no_guideline.py \
   --batch-size 50 \
   --batch-dir outputs/control1/baseline_results
 ```
+
+## Revised Control 1: Formal-Guideline Ablation
+
+For the revision experiment, the original four-step CLEVER condition is
+compared with a minimally edited Control 1 condition. Control 1 removes only
+the formal coding-guideline component while retaining document navigation,
+extraction engineering, terminology refinement, curated KCD retrieval, and
+Phase 3 correction.
+
+Patient-derived few-shot examples are not distributed in this repository.
+Only synthetic examples for smoke testing and output-format validation are
+included. The command below is therefore an audit interface for authorized
+users who hold the governed local prompt package; it does not expose the
+patient-derived examples.
+
+```bash
+python scripts/ablation/run_control1_formal_guideline_ablation.py \
+  --input-dir data/private_independent_test_notes \
+  --output-dir outputs/control1_formal_guideline_legacy_exact \
+  --full-prompts-file /private/path/entity_extraction_qwen_final.py \
+  --control1-few-shots-file /private/path/control1_minimal_few_shots.py \
+  --model-id qwen.qwen3-32b-v1:0 \
+  --region us-west-2 \
+  --condition both \
+  --no-resume
+```
+
+The `full` branch reads the governed prompts and few-shots from the authorized
+local package. The legacy prompt wrapper, JSON parsing/serialization,
+filesystem request order, two workers, 10-record batches, and 5-second batch
+delay are restored by this runner. A SHA-256 run manifest is saved beside the
+outputs. The `control1` branch uses the same source cases with only the formal
+guideline instructions and associated demonstration content removed. Its
+neutralized Step 2 is implemented as a deterministic copy of Step 1 so the LLM
+cannot alter a pass-through result. The public synthetic examples document the
+expected data format but are not represented as the examples used to obtain
+the manuscript results.
 
 ## Control 2: Original KCD Descriptions
 
@@ -78,8 +115,6 @@ python scripts/evaluate_pipeline_phase3.py \
 Repeat the same evaluation commands for `control2` and `control3` by changing
 the output paths.
 
-
-
 ## Ablation Statistics
 
 After generating the Phase 3 evaluation workbooks for CLEVER and all controls,
@@ -94,5 +129,8 @@ python scripts/ablation/evaluate_control_statistics.py \
   --output-excel outputs/ablation_statistics.xlsx
 ```
 
-The script reports paired t-test results used in the manuscript ablation table.
+This utility reproduces the paired t-test sensitivity analysis. The revised
+manuscript treats document-level randomization tests with Holm adjustment as
+the primary inferential analysis and reports the full bootstrap and
+randomization procedure in the supplementary methods.
 

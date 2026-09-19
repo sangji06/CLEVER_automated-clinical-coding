@@ -9,3 +9,12 @@ phase2:
 
 phase3:
   rules_path: rules/code_correction_rules.csv
+
+direct_baseline:
+  aws_region: us-west-2
+  model_id: qwen.qwen3-32b-v1:0
+  prompt_version: direct-kcd-v1.2
+  max_tokens: 4096
+  temperature: 0.0
+  top_p: 0.9
+  technical_max_attempts: 3

@@ -5,7 +5,10 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .venv/
+.venv*/
 venv/
+*.egg-info/
+.DS_Store
 
 # Local environment
 .env
@@ -22,7 +25,12 @@ outputs/*
 
 # Patient-derived or non-public research artifacts
 ER*/
-*ER*
+ER Data/
+ER_Data/
+ERData/
+**/ER Data/**
+**/ER_Data/**
+**/ERData/**
 GT_*.json
 step*_result_*.json
 step*_result_*.xlsx

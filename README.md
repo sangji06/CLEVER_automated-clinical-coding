@@ -77,6 +77,16 @@ python scripts/run_phase3_code_corrector.py \
   --log-csv outputs/phase3_applied_rules.csv
 ```
 
+The public rule table contains the 20 deterministic rules used in the revised
+analysis. It records explicit execution priorities and the controls required
+for overlapping rules, pattern-matched component removal, and dual-code output.
+The command writes both the corrected Phase 3 output and an applied-rule audit
+log. Run the Phase 3 regression tests with:
+
+```bash
+python -m unittest discover -s tests -p 'test_phase3_code_corrector.py'
+```
+
 Evaluate Phase 1 independently:
 
 ```bash
@@ -115,24 +125,41 @@ python scripts/run_pipeline.py \
   --rule-log outputs/phase3_applied_rules.csv
 ```
 
-Ablation scripts are tracked separately under `scripts/ablation/` and use local/private inputs and locally built FAISS indexes. The manuscript controls are:
+Ablation scripts are tracked separately under `scripts/ablation/` and use
+local/private inputs and locally built FAISS indexes. The manuscript controls
+are:
 
-- Control 1: no-guideline Phase 1 + curated KCD retrieval.
+- Control 1: formal coding-guideline instructions removed from Phase 1 while
+  retaining document navigation, extraction engineering, terminology
+  refinement, curated KCD retrieval, and Phase 3 correction.
 - Control 2: guided Phase 1 + original KCD retrieval.
-- Control 3: no-guideline Phase 1 + original KCD retrieval.
+- Control 3: the Control 1 Phase 1 condition + original KCD retrieval.
+
+The additional direct LLM baseline maps each raw note to final KCD-8 codes in
+one Qwen3-32B call, without using any CLEVER component:
+
+```bash
+python scripts/baselines/run_direct_llm_kcd.py \
+  --input-dir data/private_independent_test_notes \
+  --output outputs/direct_llm/direct_kcd_predictions.json \
+  --model-id qwen.qwen3-32b-v1:0
+```
 
 See `scripts/ablation/README.md` for command examples.
+See `scripts/baselines/README.md` for the direct baseline protocol and outputs.
+
+The repository contains synthetic examples for smoke testing and format
+validation only. Patient-derived few-shot examples used during the study are
+not included. They are not required to inspect the published prompt logic, but
+exact regeneration of the original LLM responses requires the corresponding
+institutionally governed inputs.
 
 ## Annotation App
 
 The Streamlit annotation tool used to support ground-truth construction is included under `tools/annotation_app/`. It is a research utility and is separate from the main CLEVER inference pipeline. Clinical notes and annotation outputs are not included.
+
 ## Data
 
 Clinical notes, ground-truth annotations, the curated KCD database, and FAISS
 indexes are not included. See `docs/data_availability.md`.
-
-
-
-
-
 
